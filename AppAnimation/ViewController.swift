@@ -6,14 +6,43 @@
 //
 
 import UIKit
+import SpringAnimation
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
+    @IBOutlet var coreAnimationView: UIView!
+    @IBOutlet var springAnimationView: UIView!
+    
+    private var animationStarted = false
+    
+    @IBAction func startCoreAnimation(_ sender: UIButton) {
+        sender.pulsate()
+        
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0,
+            options: [.autoreverse, .repeat]) { [unowned self] in
+            if !animationStarted {
+                coreAnimationView.frame.origin.x -= 40
+                animationStarted.toggle()
+            }
+        }
     }
-
-
+    
+    @IBAction func startSpringAnimation(_ sender: SpringButton) {
+        springAnimationView.animation = "shake"
+        springAnimationView.curve = "easeIn"
+        springAnimationView.force = 2
+        springAnimationView.duration = 1
+        springAnimationView.delay = 0.3
+        springAnimationView.animate()
+        
+        sender.animation = "swing"
+        sender.animation()
+    }
+    
+    
+    
+    
 }
 
