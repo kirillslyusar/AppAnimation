@@ -11,7 +11,7 @@ import SpringAnimation
 final class ViewController: UIViewController {
 
     @IBOutlet var coreAnimationView: UIView!
-    @IBOutlet var springAnimationView: UIView!
+    @IBOutlet var springAnimationView: SpringView!
     
     private var animationStarted = false
     
@@ -21,7 +21,7 @@ final class ViewController: UIViewController {
         UIView.animate(
             withDuration: 0.5,
             delay: 0,
-            options: [.autoreverse, .repeat]) { [unowned self] in
+            options: [.autoreverse, .repeat]) { [unowned self] in // список захвата
             if !animationStarted {
                 coreAnimationView.frame.origin.x -= 40
                 animationStarted.toggle()
@@ -38,7 +38,7 @@ final class ViewController: UIViewController {
         springAnimationView.animate()
         
         sender.animation = "swing"
-        sender.animation()
+        sender.animate()
     }
     
     
